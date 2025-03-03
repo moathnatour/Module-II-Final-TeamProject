@@ -100,7 +100,6 @@ export function init(board, startButton) {
         movePaddles();
         updatePaddlePosition();
         updateBallPosition();
-        // updatePaddlePosition();
         requestAnimationFrame(gameLoop);
     }
 }
