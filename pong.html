@@ -3,12 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pong</title>
-    <link rel="stylesheet" href="dist/style.css" />
+    <title>Document</title>
+    <link rel="stylesheet" href="dist/style.css">
 </head>
 <body>
-    <script src="dist/controller.js"></script>
-    <script src="dist/view.js"></script>
-    <script src="dist/model.js"></script>
+    <main>
+        <button id="startButton">Start</button>
+        <div id="board" class="board">
+            <div class="center"></div>
+            <!-- <div class="paddle player1" id="player1"></div> 
+            <div class="paddle player2" id="player2" ></div>         -->
+        </div>
+    </main>
+    
+    <script type="module" >
+        import { playGame } from "./dist/view.js";
+        playGame (document.getElementById('board'),
+            document.getElementById('startButton'),
+    )
+    </script>
 </body>
 </html>
