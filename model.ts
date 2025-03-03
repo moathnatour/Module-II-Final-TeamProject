@@ -44,7 +44,7 @@
 //         if(this.y >= boardY || this.y <= 0){
 //             this.dY = this.dY * -1;
 //         }
-        
+
 //     }
 
 //     start() {
@@ -82,7 +82,7 @@
 //     draw() {
 
 //     }
-    
+
 //     getScore() {
 
 //     }
@@ -94,7 +94,7 @@
 
 // class ComputerPlayer extends Player {
 //     update() {
-        
+
 //     }
 
 // }
@@ -195,7 +195,7 @@ export class Paddle {
     size: number
     counter = 0;
 
-    constructor(speed : number, xPos: number, yPos: number, size: number) {
+    constructor(speed: number, xPos: number, yPos: number, size: number) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.size = size;
@@ -205,10 +205,10 @@ export class Paddle {
 
     moveUp() {
         this.yPos -= this.speed;
-       
+
     }
 
-    moveDown(){
+    moveDown() {
         this.yPos += this.speed;
     }
 
@@ -220,4 +220,14 @@ export class Paddle {
         this.counter = 0;
     }
 
+    getPosition(){
+        return this.yPos;
+    }
+
 }
+
+// export function checkForCollision( ball : Ball, paddle : Paddle){
+
+//         return ((paddle.yPos + paddle.size) < ball.yPos) && (paddle.yPos > (ball.yPos + ball.size)) ;
+    
+// }

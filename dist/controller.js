@@ -16,8 +16,14 @@ export function bounceBallAround(speed, speedMultiplier, size, xPos, yPos) {
     function changeYDirection() {
         newBall.changeYDirection();
     }
-    function getySpeeds() {
+    function getYSpeed() {
         return newBall.ySpeed;
     }
-    return { moveBall, getYPosition, getXPosition, changeXDirection, changeYDirection, getySpeeds };
+    function getXSpeed() {
+        return newBall.xSpeed;
+    }
+    function getSize() {
+        return newBall.size;
+    }
+    return { moveBall, getYPosition, getXPosition, changeXDirection, changeYDirection, getYSpeed, getXSpeed, getSize };
 }

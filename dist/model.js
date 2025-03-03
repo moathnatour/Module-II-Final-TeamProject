@@ -152,4 +152,10 @@ export class Paddle {
     resetCounter() {
         this.counter = 0;
     }
+    getPosition() {
+        return this.yPos;
+    }
 }
+// export function checkForCollision( ball : Ball, paddle : Paddle){
+//         return ((paddle.yPos + paddle.size) < ball.yPos) && (paddle.yPos > (ball.yPos + ball.size)) ;
+// }

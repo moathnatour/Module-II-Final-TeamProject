@@ -1,33 +1,41 @@
 import { Ball, } from "./model.js"
 
-export function bounceBallAround (speed : number, speedMultiplier : number , size : number, xPos : number, yPos : number){
+export function bounceBallAround(speed: number, speedMultiplier: number, size: number, xPos: number, yPos: number) {
 
     const newBall = new Ball(speed, speedMultiplier, size, xPos, yPos);
 
-    function moveBall(){
+    function moveBall() {
         newBall.move()
     }
-   
-    function getYPosition(){
+
+    function getYPosition() {
         return newBall.yPos
     }
 
-    function getXPosition(){
+    function getXPosition() {
         return newBall.xPos
     }
 
-    function changeXDirection(){
+    function changeXDirection() {
         newBall.changeXDirection();
     }
 
-    function changeYDirection(){
+    function changeYDirection() {
         newBall.changeYDirection();
     }
 
-    function getySpeeds(){
-        return  newBall.ySpeed;
+    function getYSpeed() {
+        return newBall.ySpeed;
     }
 
-return { moveBall, getYPosition, getXPosition, changeXDirection, changeYDirection, getySpeeds};
-   
+    function getXSpeed(){
+        return newBall.xSpeed;
+    }
+
+    function getSize(){
+        return newBall.size;
+    }
+
+    return { moveBall, getYPosition, getXPosition, changeXDirection, changeYDirection, getYSpeed, getXSpeed, getSize };
+
 }

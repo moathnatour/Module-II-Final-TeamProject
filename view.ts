@@ -1,23 +1,23 @@
 import { bounceBallAround, } from "./controller.js";
-import { Paddle } from "./model.js" 
+import { Paddle, } from "./model.js"
 
-export function init(board : HTMLElement, startButton : HTMLButtonElement){
+export function init(board: HTMLElement, startButton: HTMLButtonElement) {
 
 
     const boardWidth = board.clientWidth;
-    const boardHeight = board.clientHeight; 
-    const ballSize  = 20;
+    const boardHeight = board.clientHeight;
+    const ballSize = 20;
     const paddleSize = 100;
     const centerX = (boardWidth - ballSize) / 2;
     const centerY = (boardHeight - ballSize) / 2;
 
-    const leftPaddle = new Paddle(3, 10, boardHeight/2 - paddleSize/2, paddleSize);
-    const rightPaddle = new Paddle(3, -10, boardHeight/2 - paddleSize/2, paddleSize);
+    const leftPaddle = new Paddle(3, 10, boardHeight / 2 - paddleSize / 2, paddleSize);
+    const rightPaddle = new Paddle(3, 790, boardHeight / 2 - paddleSize / 2, paddleSize);
 
     const firstPlayer = document.createElement("div");
     firstPlayer.classList.add('paddle');
     firstPlayer.style.top = `${leftPaddle.yPos}px`;
-    firstPlayer.style.left= `${5}px`;
+    firstPlayer.style.left = `${5}px`;
     firstPlayer.style.height = `${leftPaddle.size}px`
     board.appendChild(firstPlayer);
 
@@ -28,107 +28,121 @@ export function init(board : HTMLElement, startButton : HTMLButtonElement){
     secondPlayer.style.height = `${rightPaddle.size}px`
     board.appendChild(secondPlayer);
 
-    function updatePaddlePosition(){
+    function updatePaddlePosition() {
         firstPlayer.style.top = `${leftPaddle.yPos}px`;
         secondPlayer.style.top = `${rightPaddle.yPos}px`
+        // console.log(secondPlayer.style.top, rightPaddle.yPos)
     };
 
     const controls = {
-        ArrowUp : false,
-        ArrowDown : false,
-        w : false,
-        s : false,
+        ArrowUp: false,
+        ArrowDown: false,
+        w: false,
+        s: false,
     };
 
-    document.addEventListener('keydown', function(e){
+    document.addEventListener('keydown', function (e) {
 
-        if (e.key === 'w' ) {
+        if (e.key === 'w') {
             controls.w = true;
         }
-        if (e.key === 's' ) {
+        if (e.key === 's') {
             controls.s = true;
         }
-        if (e.key === 'ArrowUp' ) {
+        if (e.key === 'ArrowUp') {
             controls.ArrowUp = true;
         }
         if (e.key === 'ArrowDown') {
-            controls.ArrowDown = true; 
+            controls.ArrowDown = true;
         }
     })
 
-    document.addEventListener('keyup' , function(e){
-        if(e.key === 'w'){
+    document.addEventListener('keyup', function (e) {
+        if (e.key === 'w') {
             controls.w = false;
         }
-        if(e.key=== 's'){
+        if (e.key === 's') {
             controls.s = false;
         }
-        if(e.key === 'ArrowUp'){
+        if (e.key === 'ArrowUp') {
             controls.ArrowUp = false;
         }
-        if(e.key === 'ArrowDown'){
+        if (e.key === 'ArrowDown') {
             controls.ArrowDown = false;
-        } 
+        }
     })
 
-    function movePaddles(){
+    function movePaddles() {
 
-        if(controls.w && leftPaddle.yPos > 0 ){
+        if (controls.w && leftPaddle.yPos > 0) {
             leftPaddle.moveUp();
         }
 
-        if(controls.s && leftPaddle.yPos < (boardHeight - paddleSize)){
-leftPaddle.moveDown();
+        if (controls.s && leftPaddle.yPos < (boardHeight - paddleSize)) {
+            leftPaddle.moveDown();
         }
 
-        if(controls.ArrowUp && rightPaddle.yPos > 0){
+        if (controls.ArrowUp && rightPaddle.yPos > 0) {
             rightPaddle.moveUp();
         }
 
-        if(controls.ArrowDown && rightPaddle.yPos < (boardHeight- paddleSize)){
+        if (controls.ArrowDown && rightPaddle.yPos < (boardHeight - paddleSize)) {
             rightPaddle.moveDown();
         }
+updatePaddlePosition();
 
-        
     }
 
 
-    const {moveBall , getYPosition, getXPosition, changeXDirection, changeYDirection, getySpeeds } = 
-    bounceBallAround(1, 2, ballSize, centerX, centerY);
+    const { moveBall, getYPosition, getXPosition, changeXDirection, changeYDirection, getYSpeed, getXSpeed, getSize } =
+        bounceBallAround(0.5, 2, ballSize, centerX, centerY);
 
     const ball = document.createElement('div');
-        ball.classList.add('ball');
-        ball.style.width = `${ballSize}px`;
-        ball.style.left = `${centerX}px`;
-        ball.style.top = `${centerY}px`;
-        board.appendChild(ball);
-   
+    ball.classList.add('ball');
+    ball.style.width = `${ballSize}px`;
+    ball.style.left = `${centerX}px`;
+    ball.style.top = `${centerY}px`;
+    board.appendChild(ball);
 
-    startButton.addEventListener('click' , function(e){
+
+    startButton.addEventListener('click', function (e) {
         e.preventDefault();
         gameLoop();
 
     })
 
-    function updateBallPosition(){
+    function updateBallPosition() {
         ball.style.left = `${getXPosition()}px`;
         ball.style.top = `${getYPosition()}px`;
- 
-        if(getXPosition() >= (board.clientWidth - ballSize)  || getXPosition() <= 0 ){
+
+        const ballSize = getSize();
+   
+        
+
+        if (getXPosition() <= (leftPaddle.xPos) && ((getYPosition() > leftPaddle.getPosition()) && (getYPosition() < leftPaddle.getPosition() + leftPaddle.size ))  ) {
+
 
             changeXDirection();
+            
         }
 
-        if(getYPosition() >= (board.clientHeight - ballSize)  || getYPosition() <= 0   ){
+        if((getXPosition() + ballSize) >= (rightPaddle.xPos) && ((getYPosition() > rightPaddle.getPosition()) && (getYPosition() < rightPaddle.getPosition() + rightPaddle.size))) {
+            changeXDirection();
+           
+        }
 
+      
+
+        if (getYPosition() >= (board.clientHeight - ballSize) || getYPosition() <= 0) {
+           
             changeYDirection();
+            
         }
-     }
+    }
 
-    function gameLoop(){
+    function gameLoop() {
         moveBall();
         movePaddles();
-        updatePaddlePosition();
         updateBallPosition();
         requestAnimationFrame(gameLoop);
     }
