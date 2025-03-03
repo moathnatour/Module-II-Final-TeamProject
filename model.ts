@@ -1,4 +1,4 @@
-export class Ball{
+class Ball {
     speed : number = 2;
     radius : string = "med";
     exist : boolean = true;
@@ -47,6 +47,19 @@ export class Ball{
         
     }
 
-class player{
+    start() {
+    }
+
+    reset() {
+
+    }
+
+    hitPlayer() {
+
+    }
+}
+
+class Player {
+    
     
 }

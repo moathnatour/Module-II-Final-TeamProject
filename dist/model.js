@@ -1,6 +1,3 @@
-"use strict";
-exports.__esModule = true;
-exports.Ball = void 0;
 var Ball = /** @class */ (function () {
     function Ball(x, y) {
         if (x === void 0) { x = 0; }
@@ -36,11 +33,16 @@ var Ball = /** @class */ (function () {
             this.dY = this.dY * -1;
         }
     };
+    Ball.prototype.start = function () {
+    };
+    Ball.prototype.reset = function () {
+    };
+    Ball.prototype.hitPlayer = function () {
+    };
     return Ball;
 }());
-exports.Ball = Ball;
-var player = /** @class */ (function () {
-    function player() {
+var Player = /** @class */ (function () {
+    function Player() {
     }
-    return player;
+    return Player;
 }());
