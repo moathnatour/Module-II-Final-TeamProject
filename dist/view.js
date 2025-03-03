@@ -7,8 +7,8 @@ export function init(board, startButton) {
     const paddleSize = 100;
     const centerX = (boardWidth - ballSize) / 2;
     const centerY = (boardHeight - ballSize) / 2;
-    const leftPaddle = new Paddle(10, 10, boardHeight / 2 - paddleSize / 2, paddleSize);
-    const rightPaddle = new Paddle(10, -10, boardHeight / 2 - paddleSize / 2, paddleSize);
+    const leftPaddle = new Paddle(3, 10, boardHeight / 2 - paddleSize / 2, paddleSize);
+    const rightPaddle = new Paddle(3, -10, boardHeight / 2 - paddleSize / 2, paddleSize);
     const firstPlayer = document.createElement("div");
     firstPlayer.classList.add('paddle');
     firstPlayer.style.top = `${leftPaddle.yPos}px`;
@@ -25,24 +25,55 @@ export function init(board, startButton) {
         firstPlayer.style.top = `${leftPaddle.yPos}px`;
         secondPlayer.style.top = `${rightPaddle.yPos}px`;
     }
+    ;
+    const controls = {
+        ArrowUp: false,
+        ArrowDown: false,
+        w: false,
+        s: false,
+    };
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'w' && leftPaddle.yPos > 0) {
-            leftPaddle.moveUp();
-            updatePaddlePosition();
+        if (e.key === 'w') {
+            controls.w = true;
         }
-        if (e.key === 's' && leftPaddle.yPos < (boardHeight - paddleSize)) {
-            leftPaddle.moveDown();
-            updatePaddlePosition();
+        if (e.key === 's') {
+            controls.s = true;
         }
-        if (e.key === 'ArrowUp' && rightPaddle.yPos > 0) {
-            rightPaddle.moveUp();
-            updatePaddlePosition();
+        if (e.key === 'ArrowUp') {
+            controls.ArrowUp = true;
         }
-        if (e.key === 'ArrowDown' && rightPaddle.yPos < (boardHeight - paddleSize)) {
-            rightPaddle.moveDown();
-            updatePaddlePosition();
+        if (e.key === 'ArrowDown') {
+            controls.ArrowDown = true;
         }
     });
+    document.addEventListener('keyup', function (e) {
+        if (e.key === 'w') {
+            controls.w = false;
+        }
+        if (e.key === 's') {
+            controls.s = false;
+        }
+        if (e.key === 'ArrowUp') {
+            controls.ArrowUp = false;
+        }
+        if (e.key === 'ArrowDown') {
+            controls.ArrowDown = false;
+        }
+    });
+    function movePaddles() {
+        if (controls.w && leftPaddle.yPos > 0) {
+            leftPaddle.moveUp();
+        }
+        if (controls.s && leftPaddle.yPos < (boardHeight - paddleSize)) {
+            leftPaddle.moveDown();
+        }
+        if (controls.ArrowUp && rightPaddle.yPos > 0) {
+            rightPaddle.moveUp();
+        }
+        if (controls.ArrowDown && rightPaddle.yPos < (boardHeight - paddleSize)) {
+            rightPaddle.moveDown();
+        }
+    }
     const { moveBall, getYPosition, getXPosition, changeXDirection, changeYDirection, getySpeeds } = bounceBallAround(1, 2, ballSize, centerX, centerY);
     const ball = document.createElement('div');
     ball.classList.add('ball');
@@ -66,7 +97,10 @@ export function init(board, startButton) {
     }
     function gameLoop() {
         moveBall();
+        movePaddles();
+        updatePaddlePosition();
         updateBallPosition();
+        // updatePaddlePosition();
         requestAnimationFrame(gameLoop);
     }
 }
