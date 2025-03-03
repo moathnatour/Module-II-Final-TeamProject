@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "lib": ["DOM", "ESNext"],
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution" : "node",
+    }
+}
