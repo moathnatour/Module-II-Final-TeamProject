@@ -60,6 +60,68 @@ class Ball {
 }
 
 class Player {
+    length: number;
+    width: number;
+    speed: number;
+    color: string;
+    playerDirection: number;
+    playerScore: number;
+    playerName: string;
+    startX: number;
+    startY: number;
+
+    constructor(public x = 0, public y = 0) {
+        this.startX = x;
+        this.startY = y;
+    }
+
+    update() {
+
+    }
+
+    draw() {
+
+    }
     
-    
+    getScore() {
+
+    }
+
+    giveScore() {
+
+    }
+}
+
+class ComputerPlayer extends Player {
+    update() {
+        
+    }
+
+}
+
+class Game {
+    canvasHight: number;
+    canvasWidth: number;
+    playerRight: Player;
+    playerLeft: Player;
+    ball: Ball;
+    gameMode: string;
+
+    constructor(canvasHight, canvasWidth, gameMode) {
+        this.canvasHight = canvasHight;
+        this.canvasWidth = canvasWidth;
+        this.gameMode = gameMode;
+    }
+
+    draw() {
+
+    }
+
+    update() {
+
+    }
+
+    reset() {
+
+    }
 }
