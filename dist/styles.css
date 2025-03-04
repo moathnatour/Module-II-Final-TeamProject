@@ -1,0 +1,172 @@
+:root {
+  --text_color_main: #140f07;
+  --text_color_secondary: #102b48;
+  --text_color_header: #096eab;
+  --background_color: #0efff9;
+  --color-secondary: #08baff;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+html {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  line-height: 1.5;
+}
+
+body {
+  background-color: var(--background_color);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.4rem;
+  height: 100vh;
+}
+
+ul, menu {
+  list-style: none;
+  padding: 0;
+}
+
+h1 {
+  font-size: 3rem;
+  color: var(--text_color_header);
+  text-align: center;
+}
+
+.pong-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 10rem;
+  background-color: var(--color-secondary);
+  border: 1px solid var(--text_color_secondary);
+  color: var(--text_color_header);
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+button:hover {
+  background-color: var(--text_color_secondary);
+}
+
+a {
+  text-decoration: none;
+  color: var(--text_color_header);
+}
+a:hover {
+  color: var(--text_color_secondary);
+}
+
+.board {
+  background-color: black;
+  width: 800px;
+  height: 400px;
+  position: relative;
+}
+
+.center {
+  position: absolute;
+  height: 100%;
+  width: 2px;
+  background-color: white;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%);
+}
+
+.paddle {
+  width: 5px;
+  position: absolute;
+  background-color: white;
+}
+
+.ball {
+  position: absolute;
+  background-color: var(--background_color);
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  width: calc(100vw - 2rem);
+  height: calc(100vh - 10rem);
+  padding: 0.5rem 1rem;
+  color: var(--text_color_secondary);
+}
+
+.game-header {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 5rem;
+  padding: 0.5rem 1rem;
+  width: 100vw;
+}
+
+.nav-bar {
+  padding: 0.5rem 1rem;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  gap: 2rem;
+}
+.nav-bar menu {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex: 1;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text_color_header);
+  margin: auto;
+}
+
+.game-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  flex: 1;
+  padding: 1rem;
+}
+.game-menu button {
+  width: 15rem;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 2rem;
+  padding: 0 1rem;
+  color: var(--text_color_secondary);
+  font-size: 1rem;
+}

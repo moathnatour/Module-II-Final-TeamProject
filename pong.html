@@ -3,24 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="dist/style.css">
+    <title>Pong Game</title>
+    <link rel="stylesheet" href="dist/styles.css" />
 </head>
 <body>
-    <main>
+    <header class="game-header">
+        <nav class="nav-bar">
+            <p class="logo">Pong 2.0</p>
+            <menu>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="info.html">Information</a></li>
+            </menu>
+        </nav>
+    </header>
+
+
+    <main class="stack pong-main">
+        <h1>🎮 Pong 2.0</h1>
         <button id="startButton">Start</button>
+
         <div id="board" class="board">
             <div class="center"></div>
             <!-- <div class="paddle player1" id="player1"></div> 
             <div class="paddle player2" id="player2" ></div>         -->
         </div>
     </main>
+
+    <footer>
+        <p>&copy;All rights reserved to FullStackTeam  2025</p>
+    </footer>
     
     <script type="module" >
         import { playGame } from "./dist/view.js";
         playGame (document.getElementById('board'),
             document.getElementById('startButton'),
-    )
+        )
     </script>
 </body>
 </html>
