@@ -91,7 +91,6 @@ export class Ball {
     constructor(speed, size, xPos, yPos) {
         this.xPos = 50;
         this.yPos = 50;
-        this.outOfBounds = false;
         this.size = size;
         this.xPos = xPos;
         this.yPos = yPos;
@@ -222,10 +221,10 @@ export class MultiPlayerGame {
     }
     checkForPaddleColision() {
         for (const ball of this.balls) {
-            if (ball.getXPosition() === (this.paddleMargin + 5) && ((ball.getYPosition() >= this.leftPaddle.getPosition()) && (ball.getYPosition() + ball.getSize() / 2 <= this.leftPaddle.getPosition() + this.leftPaddle.getSize()))) {
+            if (ball.getXPosition() === (this.paddleMargin + 5) && ((ball.getYPosition() > this.leftPaddle.getPosition()) && (ball.getYPosition() + ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize()))) {
                 ball.changeXDirection();
             }
-            if ((ball.getXPosition() + ball.getSize()) === this.boardWidth - this.paddleMargin - 5 && ((ball.getYPosition() >= this.rightPaddle.getPosition()) && (ball.getYPosition() + ball.getSize() / 2 < this.rightPaddle.getPosition() + this.rightPaddle.getSize()))) {
+            if ((ball.getXPosition() + ball.getSize()) === this.boardWidth - this.paddleMargin - 5 && ((ball.getYPosition() > this.rightPaddle.getPosition()) && (ball.getYPosition() + ball.getSize() / 2 < this.rightPaddle.getPosition() + this.rightPaddle.getSize()))) {
                 ball.changeXDirection();
             }
             if (ball.getXPosition() === (this.paddleMargin + 5) && (ball.getYPosition() + ball.getSize() / 2 < this.leftPaddle.getPosition() - this.leftPaddle.getSize() / 2) && (ball.getYPosition() + ball.getSize() / 2 > this.leftPaddle.getPosition() - this.leftPaddle.getSize() / 2)) {
