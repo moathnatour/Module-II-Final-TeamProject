@@ -268,7 +268,7 @@ export class MultiPlayerGame {
     defaultBallSpeed = 1;
     defaultPaddleSpeed = 2;
     ballOutOfBounds = false;
-    defaultRounds = 9;
+    defaultRounds = 3;
     numberOfRound = 0;
     leftPaddleScore = 0;
     rightPaddleScore = 0;
@@ -285,9 +285,7 @@ export class MultiPlayerGame {
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
         this.paddleMargin = paddleMargin;
-        this.ball =
-            new Ball(this.defaultBallSpeed, this.defaultBallSize, this.boardWidth / 2 - this.defaultBallSize / 2, this.boardHeight / 2 - this.defaultBallSize / 2)
-
+        this.ball = new Ball(this.defaultBallSpeed, this.defaultBallSize, this.boardWidth / 2 - this.defaultBallSize / 2, this.boardHeight / 2 - this.defaultBallSize / 2);
         this.leftPaddle = new Paddle(this.defaultPaddleSpeed, this.paddleMargin, this.boardHeight / 2 - this.defaultPaddleSize / 2, this.defaultPaddleSize);
         this.rightPaddle = new Paddle(this.defaultPaddleSpeed, this.boardWidth - this.paddleMargin * 2, this.boardHeight / 2 - this.defaultPaddleSize / 2, this.defaultPaddleSize)
         this.isGameOver = false;
@@ -325,13 +323,13 @@ export class MultiPlayerGame {
 
     checkForPaddleColision() {
 
-        if (this.ball.getXPosition() === (this.paddleMargin + 5) && ((this.ball.getYPosition() > this.leftPaddle.getPosition()) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize()))) {
+        if (this.ball.getXPosition() <= (this.paddleMargin + 5) && ((this.ball.getYPosition() > this.leftPaddle.getPosition()) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize()))) {
             this.ball.changeXDirection();
             this.ball.lastTouchedPaddle = "left";
 
         }
 
-        if ((this.ball.getXPosition() + this.ball.getSize()) === this.boardWidth - this.paddleMargin - 5 && ((this.ball.getYPosition() > this.rightPaddle.getPosition()) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.rightPaddle.getPosition() + this.rightPaddle.getSize()))) {
+        if ((this.ball.getXPosition() + this.ball.getSize()) >= this.boardWidth - this.paddleMargin - 5 && ((this.ball.getYPosition() > this.rightPaddle.getPosition()) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.rightPaddle.getPosition() + this.rightPaddle.getSize()))) {
             this.ball.changeXDirection();
             this.ball.lastTouchedPaddle = "right";
         }
@@ -408,6 +406,8 @@ if(this.numberOfRound < this.defaultRounds && this.ballOutOfBounds){
     endGame(){
         if( this.leftPaddleScore > this.defaultRounds - this.leftPaddleScore || this.rightPaddleScore > this.defaultRounds - this.rightPaddleScore){
         this.isGameOver = true;
+        this.boardHeight = 3;
+        this.boardWidth = 0;
         console.log(this.leftPaddleScore, this.rightPaddleScore)
         console.log('game ended')
         
@@ -420,16 +420,93 @@ if(this.numberOfRound < this.defaultRounds && this.ballOutOfBounds){
 
     returnWinner(){
         if(this.leftPaddleScore > this.rightPaddleScore){
-            return `Left player wins ${this.leftPaddleScore} to ${this.rightPaddleScore}`
+            return [`Left player wins ${this.leftPaddleScore} to ${this.rightPaddleScore}`, this.boardHeight, this.boardWidth]
         }
 
         if(this.rightPaddleScore > this.leftPaddleScore){
-            return `Right player wins ${this.rightPaddleScore} to ${this.leftPaddleScore}`;
+            return [`Right player wins ${this.rightPaddleScore} to ${this.leftPaddleScore}`, this.boardHeight, this.boardWidth]
         }
     }
 
 
 }
+
+class QuickMatchBall extends Ball {
+
+    constructor(speed: number, size: number, xPos: number, yPos: number){
+
+        super(speed, size, xPos, yPos)
+    }
+
+    changeXDirection(){
+this.xSpeed *= -1.2;
+    }
+    
+
+}
+
+
+export class QuickMatchGame extends MultiPlayerGame{
+
+   constructor (boardHeight: number, boardWidth: number, paddleMargin: number){
+        
+        super(boardHeight, boardWidth, paddleMargin)
+        this.defaultRounds =1;
+
+        this.ball = new QuickMatchBall(this.defaultBallSpeed, this.defaultBallSize, this.boardWidth / 2 - this.defaultBallSize / 2, this.boardHeight / 2 - this.defaultBallSize / 2);
+    }
+}
+
+
+class AiPAddle extends Paddle{
+
+    constructor(speed: number, xPos: number, yPos: number, size: number){
+        super(speed, xPos, yPos, size)
+    }
+
+
+}
+
+
+class SinglePlayerGame extends MultiPlayerGame {
+
+    difficulty : number
+
+    constructor(boardHeight: number, boardWidth: number, paddleMargin: number, difficulty : number){
+
+        super(boardHeight, boardWidth,paddleMargin)
+        this.difficulty = difficulty;
+    }
+
+
+    movePaddles() {
+        if (this.controls.w && this.leftPaddle.yPos < this.boardHeight - this.leftPaddle.size) {
+            this.leftPaddle.moveUp();
+        }
+
+        if (this.controls.s && this.leftPaddle.yPos > 0) {
+            this.leftPaddle.moveDown();
+        }
+
+        if (this.controls.ArrowUp && this.rightPaddle.yPos < this.boardHeight - this.rightPaddle.size) {
+            this.rightPaddle.moveUp();
+        }
+
+        if (this.controls.ArrowDown && this.rightPaddle.yPos > 0) {
+            this.rightPaddle.moveDown();
+        }
+    }
+
+    trackBall(){
+        if(this.ball.xPos + this.ball.size < this.boardWidth/2 && (this.ball.getYPosition() > this.leftPaddle.getPosition()) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize()) ){
+
+    }
+}
+}
+
+
+
+
 
 
 

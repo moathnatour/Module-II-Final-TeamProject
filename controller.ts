@@ -1,4 +1,4 @@
-import { MultiPlayerGame } from "./model.js"
+import { MultiPlayerGame, QuickMatchGame } from "./model.js"
 import {} from "./view.js"
 
 // export function bounceBallAround(speed: number, speedMultiplier: number, size: number, xPos: number, yPos: number) {
@@ -43,7 +43,7 @@ import {} from "./view.js"
 
 export function onStartGame(boardHeight : number, boardWidth : number, paddleMargin: number){
 
-    const newGame = new MultiPlayerGame(boardHeight, boardWidth, paddleMargin);
+    const newGame = new QuickMatchGame(boardHeight, boardWidth, paddleMargin);
 
     document.addEventListener('keydown' , function(e){
         if (e.key === 'w') {
