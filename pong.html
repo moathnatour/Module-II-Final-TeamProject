@@ -24,6 +24,8 @@
 
         <div id="board" class="board">
             <div class="center"></div>
+            <div id="leftplayer" class="scoreboard left-scoreboard"></div>
+            <div id="rightplayer" class="scoreboard right-scoreboard"></div>
             <!-- <div class="paddle player1" id="player1"></div> 
             <div class="paddle player2" id="player2" ></div>         -->
         </div>
@@ -34,9 +36,11 @@
     </footer>
     
     <script type="module" >
-        import { playGame } from "./dist/view.js";
-        playGame (document.getElementById('board'),
+        import { renderGame } from "./dist/view.js";
+        renderGame (document.getElementById('board'),
             document.getElementById('startButton'),
+            document.getElementById('leftplayer'),
+            document.getElementById('rightplayer'),
         )
     </script>
 </body>

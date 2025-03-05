@@ -95,7 +95,6 @@ export class Ball {
         this.xPos = xPos;
         this.yPos = yPos;
         this.randomizeInitialDirection(speed);
-        this.id = crypto.randomUUID().replaceAll("-", " ").slice(-6);
     }
     changeXDirection() {
         this.xSpeed = this.xSpeed * -1;
@@ -149,7 +148,7 @@ export class Ball {
 }
 export class Paddle {
     constructor(speed, xPos, yPos, size) {
-        this.counter = 0;
+        this.score = 0;
         this.xPos = xPos;
         this.yPos = yPos;
         this.size = size;
@@ -161,48 +160,48 @@ export class Paddle {
     moveDown() {
         this.yPos -= this.speed;
     }
-    registerTouch() {
-        this.counter++;
-    }
-    resetCounter() {
-        this.counter = 0;
-    }
     getPosition() {
         return this.yPos;
     }
     getSize() {
         return this.size;
     }
+    setScore() {
+        this.score++;
+    }
+    getScore() {
+        return this.score;
+    }
 }
 export class MultiPlayerGame {
     constructor(boardHeight, boardWidth, paddleMargin) {
+        this.defaultBallSize = 20;
+        this.defaultPaddleSize = 100;
+        this.defaultBallSpeed = 1;
+        this.defaultPaddleSpeed = 2;
+        this.ballOutOfBounds = false;
+        this.defaultRounds = 9;
+        this.numberOfRound = 0;
+        this.leftPaddleScore = 0;
+        this.rightPaddleScore = 0;
         this.controls = {
             ArrowUp: false,
             ArrowDown: false,
             w: false,
             s: false,
         };
-        const defaultBallSize = 20;
-        const defaultPaddleSize = 100;
-        const defaultBallSpeed = 1;
-        const defaultPaddleSpeed = 2;
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
         this.paddleMargin = paddleMargin;
-        this.balls = [
-            new Ball(defaultBallSpeed, defaultBallSize, boardWidth / 2 - defaultBallSize / 2, boardHeight / 2 - defaultBallSize / 2)
-        ];
-        this.leftPaddle = new Paddle(defaultPaddleSpeed, paddleMargin, boardHeight / 2 - defaultPaddleSize / 2, defaultPaddleSize);
-        this.rightPaddle = new Paddle(defaultPaddleSpeed, boardWidth - paddleMargin * 2, boardHeight / 2 - defaultPaddleSize / 2, defaultPaddleSize);
-    }
-    addBall() {
-        this.balls.push(new Ball(1, 20, this.boardWidth / 2, this.boardHeight / 2));
+        this.ball =
+            new Ball(this.defaultBallSpeed, this.defaultBallSize, this.boardWidth / 2 - this.defaultBallSize / 2, this.boardHeight / 2 - this.defaultBallSize / 2);
+        this.leftPaddle = new Paddle(this.defaultPaddleSpeed, this.paddleMargin, this.boardHeight / 2 - this.defaultPaddleSize / 2, this.defaultPaddleSize);
+        this.rightPaddle = new Paddle(this.defaultPaddleSpeed, this.boardWidth - this.paddleMargin * 2, this.boardHeight / 2 - this.defaultPaddleSize / 2, this.defaultPaddleSize);
+        this.isGameOver = false;
     }
     checkForWallColision() {
-        for (const ball of this.balls) {
-            if (ball.yPos + ball.size >= this.boardHeight || ball.yPos <= 0) {
-                ball.changeYDirection();
-            }
+        if (this.ball.yPos + this.ball.size >= this.boardHeight || this.ball.yPos <= 0) {
+            this.ball.changeYDirection();
         }
     }
     movePaddles() {
@@ -220,29 +219,84 @@ export class MultiPlayerGame {
         }
     }
     checkForPaddleColision() {
-        for (const ball of this.balls) {
-            if (ball.getXPosition() === (this.paddleMargin + 5) && ((ball.getYPosition() > this.leftPaddle.getPosition()) && (ball.getYPosition() + ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize()))) {
-                ball.changeXDirection();
-            }
-            if ((ball.getXPosition() + ball.getSize()) === this.boardWidth - this.paddleMargin - 5 && ((ball.getYPosition() > this.rightPaddle.getPosition()) && (ball.getYPosition() + ball.getSize() / 2 < this.rightPaddle.getPosition() + this.rightPaddle.getSize()))) {
-                ball.changeXDirection();
-            }
-            if (ball.getXPosition() === (this.paddleMargin + 5) && (ball.getYPosition() + ball.getSize() / 2 < this.leftPaddle.getPosition() - this.leftPaddle.getSize() / 2) && (ball.getYPosition() + ball.getSize() / 2 > this.leftPaddle.getPosition() - this.leftPaddle.getSize() / 2)) {
-                ball.changeXDirection();
-                ball.changeYDirection();
-            }
-            if (ball.getXPosition() - ball.getSize() / 2 === this.leftPaddle.xPos && (ball.getYPosition() > this.leftPaddle.getPosition() + this.leftPaddle.getSize() / 2) && (ball.getYPosition() + ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize() / 2)) {
-                ball.changeXDirection();
-                ball.changeYDirection();
-            }
-            if ((ball.getXPosition() + ball.getSize() / 2) === (this.rightPaddle.xPos) && (ball.getYPosition() < this.rightPaddle.getPosition() - this.rightPaddle.getSize() / 2) && (ball.getYPosition() + ball.getSize() / 2 > this.rightPaddle.getPosition() - this.rightPaddle.getSize() / 2)) {
-                ball.changeXDirection();
-                ball.changeYDirection();
-            }
-            if ((ball.getXPosition() + ball.getSize() / 2) === (this.rightPaddle.xPos) && (ball.getYPosition() > this.rightPaddle.getPosition() + this.rightPaddle.getSize() / 2) && (ball.getYPosition() - ball.getSize() / 2 < this.rightPaddle.getPosition() + this.rightPaddle.getSize() / 2)) {
-                ball.changeXDirection();
-                ball.changeYDirection();
-            }
+        if (this.ball.getXPosition() === (this.paddleMargin + 5) && ((this.ball.getYPosition() > this.leftPaddle.getPosition()) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize()))) {
+            this.ball.changeXDirection();
+            this.ball.lastTouchedPaddle = "left";
+        }
+        if ((this.ball.getXPosition() + this.ball.getSize()) === this.boardWidth - this.paddleMargin - 5 && ((this.ball.getYPosition() > this.rightPaddle.getPosition()) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.rightPaddle.getPosition() + this.rightPaddle.getSize()))) {
+            this.ball.changeXDirection();
+            this.ball.lastTouchedPaddle = "right";
+        }
+        // if (this.ball.getXPosition() === (this.paddleMargin + 5) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() - this.leftPaddle.getSize() / 2) && (this.ball.getYPosition() + this.ball.getSize() / 2 > this.leftPaddle.getPosition() - this.leftPaddle.getSize() / 2)) {
+        //     this.ball.changeXDirection();
+        //     this.ball.changeYDirection();
+        // }
+        // if (this.ball.getXPosition() - this.ball.getSize() / 2 === this.leftPaddle.xPos && (this.ball.getYPosition() > this.leftPaddle.getPosition() + this.leftPaddle.getSize() / 2) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize() / 2)) {
+        //     this.ball.changeXDirection();
+        //     this.ball.changeYDirection();
+        // }
+        // if ((this.ball.getXPosition() + this.ball.getSize() / 2) === (this.rightPaddle.xPos) && (this.ball.getYPosition() < this.rightPaddle.getPosition() - this.rightPaddle.getSize() / 2) && (this.ball.getYPosition() + this.ball.getSize() / 2 > this.rightPaddle.getPosition() - this.rightPaddle.getSize() / 2)) {
+        //     this.ball.changeXDirection();
+        //     this.ball.changeYDirection();
+        // }
+        // if ((this.ball.getXPosition() + this.ball.getSize() / 2) === (this.rightPaddle.xPos) && (this.ball.getYPosition() > this.rightPaddle.getPosition() + this.rightPaddle.getSize() / 2) && (this.ball.getYPosition() - this.ball.getSize() / 2 < this.rightPaddle.getPosition() + this.rightPaddle.getSize() / 2)) {
+        //     this.ball.changeXDirection();
+        //     this.ball.changeYDirection();
+        // }
+    }
+    EndRound() {
+        if (this.ball.getXPosition() > this.boardWidth || this.ball.getXPosition() < 0) {
+            this.ballOutOfBounds = true;
+            console.log('round ended');
+        }
+    }
+    updateScore() {
+        if (this.ballOutOfBounds && this.ball.xPos > this.boardWidth) {
+            this.leftPaddleScore++;
+            console.log('left scored');
+        }
+        if (this.ballOutOfBounds && this.ball.xPos < 0) {
+            this.rightPaddleScore++;
+            console.log('right scored');
+        }
+    }
+    startRound() {
+        if (this.numberOfRound < this.defaultRounds && this.ballOutOfBounds) {
+            this.ball = new Ball(this.defaultBallSpeed, this.defaultBallSize, this.boardWidth / 2 - this.defaultBallSize / 2, this.boardHeight / 2 - this.defaultBallSize / 2);
+            this.leftPaddle = new Paddle(this.defaultPaddleSpeed, this.paddleMargin, this.boardHeight / 2 - this.defaultPaddleSize / 2, this.defaultPaddleSize);
+            this.rightPaddle = new Paddle(this.defaultPaddleSpeed, this.boardWidth - this.paddleMargin * 2, this.boardHeight / 2 - this.defaultPaddleSize / 2, this.defaultPaddleSize);
+            this.ballOutOfBounds = false;
+            this.numberOfRound++;
+            console.log('round started');
+        }
+    }
+    startGame() {
+        // setTimeout(() => this.startRound(), 1000);
+        this.startRound();
+        this.ball.move();
+        this.movePaddles();
+        this.checkForWallColision();
+        this.checkForPaddleColision();
+        this.EndRound();
+        this.updateScore();
+        this.endGame();
+    }
+    endGame() {
+        if (this.leftPaddleScore > this.defaultRounds - this.leftPaddleScore || this.rightPaddleScore > this.defaultRounds - this.rightPaddleScore) {
+            this.isGameOver = true;
+            console.log(this.leftPaddleScore, this.rightPaddleScore);
+            console.log('game ended');
+        }
+    }
+    checkForGameOver() {
+        return this.isGameOver;
+    }
+    returnWinner() {
+        if (this.leftPaddleScore > this.rightPaddleScore) {
+            return `Left player wins ${this.leftPaddleScore} to ${this.rightPaddleScore}`;
+        }
+        if (this.rightPaddleScore > this.leftPaddleScore) {
+            return `Right player wins ${this.rightPaddleScore} to ${this.leftPaddleScore}`;
         }
     }
 }

@@ -41,7 +41,7 @@ import {} from "./view.js"
 
 // }
 
-export function startGame(boardHeight : number, boardWidth : number, paddleMargin: number){
+export function onStartGame(boardHeight : number, boardWidth : number, paddleMargin: number){
 
     const newGame = new MultiPlayerGame(boardHeight, boardWidth, paddleMargin);
 
@@ -76,41 +76,73 @@ export function startGame(boardHeight : number, boardWidth : number, paddleMargi
         }
     })
 
-    function addBall(){
-        return newGame.addBall();
-    }
+   function startGame(){
+    return newGame.startGame();
+   }
 
-    function movePaddles(){
-        return newGame.movePaddles()
-    }
+   function getBall(){
+    return newGame.ball;
+   }
 
-    function checkForWallColision(){
-        return newGame.checkForWallColision();
-    }
+   function getLeftPaddle(){
+    return newGame.leftPaddle;
+   }
 
-    function checkForPaddleColision(){
-        return newGame.checkForPaddleColision()
-    }
+   function getRightPaddle(){
+    return newGame.rightPaddle;
+   }
 
-    function leftPaddle(){
-        return newGame.leftPaddle;
-    }
+   function checkForGameOver(){
+    return newGame.checkForGameOver();
+   }
 
-    function rightPaddle(){
-        return newGame.rightPaddle
-    }
+   function getLeftPaddleScore(){
+    return newGame.leftPaddleScore;
+   }
 
-    function balls(){
-         return newGame.balls
-    }
+   function getRightPaddleScore(){
+    return newGame.rightPaddleScore;
+   }
 
-    function moveBalls(){
-        for(const ball of newGame.balls){
-            ball.move();
-        }
-    }
+   function returnWinner(){
+    return newGame.returnWinner();
+   }
 
-    return {
-        addBall, movePaddles, checkForWallColision, checkForPaddleColision, balls, leftPaddle, rightPaddle, moveBalls
-    }
+   return { startGame, getBall, getLeftPaddle, getRightPaddle, checkForGameOver, getLeftPaddleScore, getRightPaddleScore, returnWinner}
+
+
+
+    // function movePaddles(){
+    //     return newGame.movePaddles()
+    // }
+
+    // function checkForWallColision(){
+    //     return newGame.checkForWallColision();
+    // }
+
+    // function checkForPaddleColision(){
+    //     return newGame.checkForPaddleColision()
+    // }
+
+    // function leftPaddle(){
+    //     return newGame.leftPaddle;
+    // }
+
+    // function rightPaddle(){
+    //     return newGame.rightPaddle
+    // }
+
+    // function ball(){
+    //      return newGame.ball
+    // }
+
+    // function moveBalls(){
+        
+    //         newGame.ball.move();
+        
+    // }
+
+    // return {
+    //      movePaddles, checkForWallColision, checkForPaddleColision, ball, leftPaddle, rightPaddle, moveBalls
+    // }
 }

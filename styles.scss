@@ -104,7 +104,7 @@ a {
     background-color: white;
 }
 
-.ball {
+.ball{
     position: absolute;
     background-color: var(--background_color);
     width: 20px;
@@ -112,6 +112,30 @@ a {
     border-radius: 50%;
 }
 
+.scoreboard{
+    position: absolute;
+    bottom: 100%;
+    background-color: aliceblue;
+    width: fit-content;
+    font-size: 3rem;
+}
+
+.left-scoreboard{
+    left: 0;
+}
+
+.right-scoreboard{
+    right: 0;
+}
+
+
+.result-display{
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background-color: white;
+}
 .stack {
     display: flex;
     flex-direction: column;
