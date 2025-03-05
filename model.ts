@@ -458,6 +458,57 @@ export class QuickMatchGame extends MultiPlayerGame{
 }
 
 
+class AiPAddle extends Paddle{
+
+    constructor(speed: number, xPos: number, yPos: number, size: number){
+        super(speed, xPos, yPos, size)
+    }
+
+
+}
+
+
+class SinglePlayerGame extends MultiPlayerGame {
+
+    difficulty : number
+
+    constructor(boardHeight: number, boardWidth: number, paddleMargin: number, difficulty : number){
+
+        super(boardHeight, boardWidth,paddleMargin)
+        this.difficulty = difficulty;
+    }
+
+
+    movePaddles() {
+        if (this.controls.w && this.leftPaddle.yPos < this.boardHeight - this.leftPaddle.size) {
+            this.leftPaddle.moveUp();
+        }
+
+        if (this.controls.s && this.leftPaddle.yPos > 0) {
+            this.leftPaddle.moveDown();
+        }
+
+        if (this.controls.ArrowUp && this.rightPaddle.yPos < this.boardHeight - this.rightPaddle.size) {
+            this.rightPaddle.moveUp();
+        }
+
+        if (this.controls.ArrowDown && this.rightPaddle.yPos > 0) {
+            this.rightPaddle.moveDown();
+        }
+    }
+
+    trackBall(){
+        if(this.ball.xPos + this.ball.size < this.boardWidth/2 && (this.ball.getYPosition() > this.leftPaddle.getPosition()) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize()) ){
+
+    }
+}
+}
+
+
+
+
+
+
 
 
 

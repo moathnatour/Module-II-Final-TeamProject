@@ -316,3 +316,32 @@ export class QuickMatchGame extends MultiPlayerGame {
         this.ball = new QuickMatchBall(this.defaultBallSpeed, this.defaultBallSize, this.boardWidth / 2 - this.defaultBallSize / 2, this.boardHeight / 2 - this.defaultBallSize / 2);
     }
 }
+class AiPAddle extends Paddle {
+    constructor(speed, xPos, yPos, size) {
+        super(speed, xPos, yPos, size);
+    }
+}
+class SinglePlayerGame extends MultiPlayerGame {
+    constructor(boardHeight, boardWidth, paddleMargin, difficulty) {
+        super(boardHeight, boardWidth, paddleMargin);
+        this.difficulty = difficulty;
+    }
+    movePaddles() {
+        if (this.controls.w && this.leftPaddle.yPos < this.boardHeight - this.leftPaddle.size) {
+            this.leftPaddle.moveUp();
+        }
+        if (this.controls.s && this.leftPaddle.yPos > 0) {
+            this.leftPaddle.moveDown();
+        }
+        if (this.controls.ArrowUp && this.rightPaddle.yPos < this.boardHeight - this.rightPaddle.size) {
+            this.rightPaddle.moveUp();
+        }
+        if (this.controls.ArrowDown && this.rightPaddle.yPos > 0) {
+            this.rightPaddle.moveDown();
+        }
+    }
+    trackBall() {
+        if (this.ball.xPos + this.ball.size < this.boardWidth / 2 && (this.ball.getYPosition() > this.leftPaddle.getPosition()) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize())) {
+        }
+    }
+}
