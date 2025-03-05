@@ -39,7 +39,7 @@ h1 {
   color: var(--text_color_header);
 }
 
-main {
+.pong-main {
   width: 100%;
   height: 100%;
   display: flex;
@@ -53,9 +53,15 @@ button {
   text-transform: uppercase;
   font-weight: bold;
   background-color: var(--color-secondary);
+  border: 1px solid var(--text_color_secondary);
   border-radius: 5px;
   padding: 0.5rem;
   text-align: center;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+button:hover {
+  background-color: var(--text_color_header);
 }
 
 .board {
@@ -94,30 +100,40 @@ button {
   display: flex;
   flex-direction: column;
   width: calc(100vw - 2rem);
-  gap: 2rem;
+  height: calc(100vh - 14rem);
   padding: 0.5rem 1rem;
   color: var(--text_color_secondary);
 }
 
 .game-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   margin: auto;
+  height: 10rem;
+  padding: 0;
 }
 
 .game-menu {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   flex: 1;
-  gap: 2rem;
+  padding: 1rem;
+}
+.game-menu button {
+  width: 15rem;
+  font-size: 1.2rem;
 }
 
 footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 2rem;
-  background-color: #e2e2e2;
-  padding: 20px;
-  text-align: center;
-  color: gray;
+  padding: 0 1rem;
+  color: var(--text_color_secondary);
 }
