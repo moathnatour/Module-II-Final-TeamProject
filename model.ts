@@ -1,130 +1,4 @@
-// class Ball {
-//     speed : number = 2;
-//     radius : string = "med";
-//     exist : boolean = true;
 
-//     color : string = "white";
-
-//     startX : number;
-//     startY : number;
-
-//     dX : number;
-//     dY: number;
-
-//     constructor (public x = 0,public y = 0){
-//         this.startX = x;
-//         this.startY = y;
-
-//         this.start();
-//     }
-
-//     isExist (){
-//         return this.exist;
-//     }
-
-//     draw ()
-//     {
-
-//     }
-//     getPositon(){
-
-//     }
-//     update(){
-//         let boardX = //canvas width
-//         let boardY = //canvas hight
-//         this.x += this.dX * this.speed;
-//         this.y += this.dY * this.speed;
-
-//         if(this.x >= boardX || this.x <= 0){
-//             this.exist = false;
-//             this.dX = 0;
-//             this.dY = 0;
-//         }
-
-//         if(this.y >= boardY || this.y <= 0){
-//             this.dY = this.dY * -1;
-//         }
-
-//     }
-
-//     start() {
-//     }
-
-//     reset() {
-
-//     }
-
-//     hitPlayer() {
-
-//     }
-// }
-
-// class Player {
-//     length: number;
-//     width: number;
-//     speed: number;
-//     color: string;
-//     playerDirection: number;
-//     playerScore: number;
-//     playerName: string;
-//     startX: number;
-//     startY: number;
-
-//     constructor(public x = 0, public y = 0) {
-//         this.startX = x;
-//         this.startY = y;
-//     }
-
-//     update() {
-
-//     }
-
-//     draw() {
-
-//     }
-
-//     getScore() {
-
-//     }
-
-//     giveScore() {
-
-//     }
-// }
-
-// class ComputerPlayer extends Player {
-//     update() {
-
-//     }
-
-// }
-
-// class Game {
-//     canvasHight: number;
-//     canvasWidth: number;
-//     playerRight: Player;
-//     playerLeft: Player;
-//     ball: Ball;
-//     gameMode: string;
-
-//     constructor(canvasHight, canvasWidth, gameMode) {
-//         this.canvasHight = canvasHight;
-//         this.canvasWidth = canvasWidth;
-//         this.gameMode = gameMode;
-//     }
-
-//     draw() {
-
-//     }
-
-//     update() {
-
-//     }
-
-//     reset() {
-
-//     }
-// }
 
 export class Ball {
 
@@ -265,7 +139,7 @@ export class MultiPlayerGame {
     isGameOver : boolean
     defaultBallSize = 20;
     defaultPaddleSize = 100;
-    defaultBallSpeed = 1;
+    defaultBallSpeed = 1.2;
     defaultPaddleSpeed = 2;
     ballOutOfBounds = false;
     defaultRounds = 3;
@@ -334,28 +208,6 @@ export class MultiPlayerGame {
             this.ball.lastTouchedPaddle = "right";
         }
 
-        // if (this.ball.getXPosition() === (this.paddleMargin + 5) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() - this.leftPaddle.getSize() / 2) && (this.ball.getYPosition() + this.ball.getSize() / 2 > this.leftPaddle.getPosition() - this.leftPaddle.getSize() / 2)) {
-        //     this.ball.changeXDirection();
-        //     this.ball.changeYDirection();
-        // }
-
-        // if (this.ball.getXPosition() - this.ball.getSize() / 2 === this.leftPaddle.xPos && (this.ball.getYPosition() > this.leftPaddle.getPosition() + this.leftPaddle.getSize() / 2) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize() / 2)) {
-        //     this.ball.changeXDirection();
-        //     this.ball.changeYDirection();
-        // }
-
-        // if ((this.ball.getXPosition() + this.ball.getSize() / 2) === (this.rightPaddle.xPos) && (this.ball.getYPosition() < this.rightPaddle.getPosition() - this.rightPaddle.getSize() / 2) && (this.ball.getYPosition() + this.ball.getSize() / 2 > this.rightPaddle.getPosition() - this.rightPaddle.getSize() / 2)) {
-        //     this.ball.changeXDirection();
-        //     this.ball.changeYDirection();
-        // }
-
-        // if ((this.ball.getXPosition() + this.ball.getSize() / 2) === (this.rightPaddle.xPos) && (this.ball.getYPosition() > this.rightPaddle.getPosition() + this.rightPaddle.getSize() / 2) && (this.ball.getYPosition() - this.ball.getSize() / 2 < this.rightPaddle.getPosition() + this.rightPaddle.getSize() / 2)) {
-        //     this.ball.changeXDirection();
-        //     this.ball.changeYDirection();
-        // }
-
-
-
     }
 
     EndRound(){
@@ -391,8 +243,6 @@ if(this.numberOfRound < this.defaultRounds && this.ballOutOfBounds){
 
      startGame(){
        
-        
-        // setTimeout(() => this.startRound(), 1000);
         this.startRound()
         this.ball.move();
         this.movePaddles();
@@ -458,35 +308,23 @@ export class QuickMatchGame extends MultiPlayerGame{
 }
 
 
-class AiPAddle extends Paddle{
 
-    constructor(speed: number, xPos: number, yPos: number, size: number){
-        super(speed, xPos, yPos, size)
-    }
-
-
-}
-
-
-class SinglePlayerGame extends MultiPlayerGame {
+export class SinglePlayerGame extends MultiPlayerGame {
 
     difficulty : number
+    distanceToTrack : number
 
     constructor(boardHeight: number, boardWidth: number, paddleMargin: number, difficulty : number){
 
         super(boardHeight, boardWidth,paddleMargin)
         this.difficulty = difficulty;
+        this.setDistanceToTrack();
     }
 
 
     movePaddles() {
-        if (this.controls.w && this.leftPaddle.yPos < this.boardHeight - this.leftPaddle.size) {
-            this.leftPaddle.moveUp();
-        }
-
-        if (this.controls.s && this.leftPaddle.yPos > 0) {
-            this.leftPaddle.moveDown();
-        }
+       
+        this.trackBall();
 
         if (this.controls.ArrowUp && this.rightPaddle.yPos < this.boardHeight - this.rightPaddle.size) {
             this.rightPaddle.moveUp();
@@ -498,11 +336,94 @@ class SinglePlayerGame extends MultiPlayerGame {
     }
 
     trackBall(){
-        if(this.ball.xPos + this.ball.size < this.boardWidth/2 && (this.ball.getYPosition() > this.leftPaddle.getPosition()) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize()) ){
+        if(this.ball.xPos  < this.distanceToTrack && (this.ball.getYPosition() < this.leftPaddle.getPosition())  ){
+this.leftPaddle.moveDown();
+    }
 
+    if(this.ball.xPos< this.distanceToTrack && this.ball.getYPosition() > this.leftPaddle.getPosition() + this.leftPaddle.size){
+        this.leftPaddle.moveUp();
+    }
+}
+
+setDistanceToTrack(){
+
+    if(this.difficulty === 1){
+        
+        this.distanceToTrack = this.boardWidth * 0.25;
+        this.leftPaddle.speed *= 0.5
+    }
+    if(this.difficulty === 2){
+        this.distanceToTrack = this.boardWidth * 0.4;
+        
+        
+    }
+    if(this.difficulty === 3){
+        this.distanceToTrack = this.boardWidth * 0.6;
+        this.leftPaddle.speed *= 1.5;
     }
 }
 }
+
+
+class PowerUp {
+
+    xPos : number
+    yPos : number
+    size : number
+    type : string 
+    duration : number
+
+    constructor(xPos : number, yPos : number, size : number, duration : number){
+
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.size = size;
+        this.duration = duration;
+
+    }
+
+
+    shorten(paddle: Paddle){
+        if(this.duration > 0){
+        paddle.size /= 1.2;
+        this.duration--
+        }
+    }
+
+    enlarge(paddle : Paddle){
+        if(this.duration > 0){
+        paddle.size *=1.2;
+        this.duration--
+        }
+    }
+
+    slowDown(paddle : Paddle){
+        if(this.duration > 0){
+        paddle.speed *= 0.7;
+        this.duration--
+        }
+    }
+}
+
+
+export class ArcadeGame extends MultiPlayerGame{
+
+isPowerUpActive = false;
+
+    constructor(boardHeight: number, boardWidth: number, paddleMargin: number){
+
+        super(boardHeight, boardWidth, paddleMargin)
+    }
+
+    dropPowerUp(){
+if(!this.isPowerUpActive){}
+    }
+
+    checkForPowerUpCollision(){
+
+    }
+}
+
 
 
 
