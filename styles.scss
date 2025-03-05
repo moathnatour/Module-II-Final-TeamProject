@@ -202,3 +202,23 @@ footer {
     color: var(--text_color_secondary);
     font-size: 1rem;
 }
+
+.nickname{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #e00d3b;
+
+}
+.forNickname{
+    display: flex;
+    justify-content: center;
+}
+.saveNickname{
+    display: flex;
+    justify-content: center;
+}
+#saveButton{
+    display: flex;
+    align-items: center;
+}
