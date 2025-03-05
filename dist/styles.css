@@ -196,11 +196,23 @@ footer {
   font-size: 1rem;
 }
 
-.nickname {
+.nickname .nickname {
   display: flex;
   justify-content: center;
   align-items: center;
   color: #e00d3b;
+}
+.nickname .forNickname {
+  display: flex;
+  justify-content: center;
+}
+.nickname .saveNickname {
+  display: flex;
+  justify-content: center;
+}
+.nickname #saveButton {
+  display: flex;
+  align-items: center;
 }
 
 .forNickname {
@@ -216,4 +228,22 @@ footer {
 #saveButton {
   display: flex;
   align-items: center;
+}
+
+@keyframes paddleBounce {
+  0% {
+    transform: scaleY(1);
+    background-color: white;
+  }
+  50% {
+    transform: scaleY(1.2);
+    background-color: yellow;
+  }
+  100% {
+    transform: scaleY(1);
+    background-color: white;
+  }
+}
+.paddle-hit {
+  animation: paddleBounce 0.1s ease-out;
 }

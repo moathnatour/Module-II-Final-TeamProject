@@ -10,7 +10,7 @@ export function renderGame(board: HTMLElement, startButton: HTMLButtonElement, l
     const {startGame, getBall, getLeftPaddle, getRightPaddle, checkForGameOver, getLeftPaddleScore, getRightPaddleScore, returnWinner} =
      onStartGame(boardHeight, boardWidth, 5);
 
-   const ball =  document.createElement('div');
+    const ball =  document.createElement('div');
     ball.classList.add('ball')
     ball.style.bottom = `${getBall().getYPosition()}px`;
     ball.style.left = `${getBall().getXPosition()}px`;
@@ -25,14 +25,13 @@ export function renderGame(board: HTMLElement, startButton: HTMLButtonElement, l
     firstPlayer.style.height = `${getLeftPaddle().size}px`
     board.appendChild(firstPlayer);
 
-
-
     const secondPlayer = document.createElement('div');
     secondPlayer.classList.add('paddle');
     secondPlayer.style.bottom = `${getRightPaddle().yPos}px`;
     secondPlayer.style.left = `${getRightPaddle().xPos}px`
     secondPlayer.style.height = `${getRightPaddle().size}px`
     board.appendChild(secondPlayer);
+
 
     function updateBoard(){
         ball.style.bottom = `${getBall().getYPosition()}px`;

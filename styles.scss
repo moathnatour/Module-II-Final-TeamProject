@@ -241,3 +241,12 @@ footer {
     align-items: center;
 }
 
+@keyframes paddleBounce {
+    0% { transform: scaleY(1); background-color: white; }
+    50% { transform: scaleY(1.2); background-color: yellow; }
+    100% { transform: scaleY(1); background-color: white; }
+}
+
+.paddle-hit {
+    animation: paddleBounce 0.1s ease-out;
+}

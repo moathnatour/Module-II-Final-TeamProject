@@ -126,6 +126,8 @@ export class Paddle {
         return this.score;
     }
 
+    
+
 }
 
 
@@ -196,19 +198,36 @@ export class MultiPlayerGame {
     }
 
     checkForPaddleColision() {
-
-        if (this.ball.getXPosition() <= (this.paddleMargin + 5) && ((this.ball.getYPosition() > this.leftPaddle.getPosition()) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize()))) {
+        if (this.ball.getXPosition() <= (this.paddleMargin + 5) &&
+            ((this.ball.getYPosition() > this.leftPaddle.getPosition()) &&
+            (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize()))) {
+            
             this.ball.changeXDirection();
             this.ball.lastTouchedPaddle = "left";
-
+            this.animatePaddle("left");
         }
-
-        if ((this.ball.getXPosition() + this.ball.getSize()) >= this.boardWidth - this.paddleMargin - 5 && ((this.ball.getYPosition() > this.rightPaddle.getPosition()) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.rightPaddle.getPosition() + this.rightPaddle.getSize()))) {
+    
+        if ((this.ball.getXPosition() + this.ball.getSize()) >= this.boardWidth - this.paddleMargin - 5 &&
+            ((this.ball.getYPosition() > this.rightPaddle.getPosition()) &&
+            (this.ball.getYPosition() + this.ball.getSize() / 2 < this.rightPaddle.getPosition() + this.rightPaddle.getSize()))) {
+            
             this.ball.changeXDirection();
             this.ball.lastTouchedPaddle = "right";
+            this.animatePaddle("right");
         }
+    }    
 
-    }
+    animatePaddle(paddleSide: "left" | "right") {
+        const paddleElement = document.querySelector(
+            paddleSide === "left" ? ".paddle:first-of-type" : ".paddle:last-of-type"
+        );
+    
+        if (paddleElement) {
+            paddleElement.classList.add("paddle-hit");
+            setTimeout(() => paddleElement.classList.remove("paddle-hit"), 100);
+        }
+    }    
+    
 
     EndRound(){
         if(this.ball.getXPosition() > this.boardWidth || this.ball.getXPosition() < 0){
