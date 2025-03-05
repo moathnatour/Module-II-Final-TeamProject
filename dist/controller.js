@@ -27,7 +27,7 @@ import { MultiPlayerGame } from "./model.js";
 //     }
 //     return { moveBall, getYPosition, getXPosition, changeXDirection, changeYDirection, getYSpeed, getXSpeed, getSize };
 // }
-export function startGame(boardHeight, boardWidth, paddleMargin) {
+export function onStartGame(boardHeight, boardWidth, paddleMargin) {
     const newGame = new MultiPlayerGame(boardHeight, boardWidth, paddleMargin);
     document.addEventListener('keydown', function (e) {
         if (e.key === 'w') {
@@ -57,33 +57,53 @@ export function startGame(boardHeight, boardWidth, paddleMargin) {
             newGame.controls.ArrowDown = false;
         }
     });
-    function addBall() {
-        return newGame.addBall();
+    function startGame() {
+        return newGame.startGame();
     }
-    function movePaddles() {
-        return newGame.movePaddles();
+    function getBall() {
+        return newGame.ball;
     }
-    function checkForWallColision() {
-        return newGame.checkForWallColision();
-    }
-    function checkForPaddleColision() {
-        return newGame.checkForPaddleColision();
-    }
-    function leftPaddle() {
+    function getLeftPaddle() {
         return newGame.leftPaddle;
     }
-    function rightPaddle() {
+    function getRightPaddle() {
         return newGame.rightPaddle;
     }
-    function balls() {
-        return newGame.balls;
+    function checkForGameOver() {
+        return newGame.checkForGameOver();
     }
-    function moveBalls() {
-        for (const ball of newGame.balls) {
-            ball.move();
-        }
+    function getLeftPaddleScore() {
+        return newGame.leftPaddleScore;
     }
-    return {
-        addBall, movePaddles, checkForWallColision, checkForPaddleColision, balls, leftPaddle, rightPaddle, moveBalls
-    };
+    function getRightPaddleScore() {
+        return newGame.rightPaddleScore;
+    }
+    function returnWinner() {
+        return newGame.returnWinner();
+    }
+    return { startGame, getBall, getLeftPaddle, getRightPaddle, checkForGameOver, getLeftPaddleScore, getRightPaddleScore, returnWinner };
+    // function movePaddles(){
+    //     return newGame.movePaddles()
+    // }
+    // function checkForWallColision(){
+    //     return newGame.checkForWallColision();
+    // }
+    // function checkForPaddleColision(){
+    //     return newGame.checkForPaddleColision()
+    // }
+    // function leftPaddle(){
+    //     return newGame.leftPaddle;
+    // }
+    // function rightPaddle(){
+    //     return newGame.rightPaddle
+    // }
+    // function ball(){
+    //      return newGame.ball
+    // }
+    // function moveBalls(){
+    //         newGame.ball.move();
+    // }
+    // return {
+    //      movePaddles, checkForWallColision, checkForPaddleColision, ball, leftPaddle, rightPaddle, moveBalls
+    // }
 }
