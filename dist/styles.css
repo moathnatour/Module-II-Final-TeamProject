@@ -40,22 +40,24 @@ h1 {
 }
 
 .pong-main {
-  width: 100%;
-  height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
 }
 
 button {
   font-family: inherit;
   cursor: pointer;
   text-transform: uppercase;
+  font-size: 1.2rem;
   font-weight: bold;
+  width: 10rem;
   background-color: var(--color-secondary);
   border: 1px solid var(--text_color_secondary);
   border-radius: 5px;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   text-align: center;
   transition: background-color 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -85,12 +87,11 @@ button:hover {
   width: 5px;
   position: absolute;
   background-color: white;
-  border: 1px red solid;
 }
 
 .ball {
   position: absolute;
-  background-color: red;
+  background-color: var(--background_color);
   width: 20px;
   aspect-ratio: 1;
   border-radius: 50%;
@@ -125,7 +126,6 @@ button:hover {
 }
 .game-menu button {
   width: 15rem;
-  font-size: 1.2rem;
 }
 
 footer {
