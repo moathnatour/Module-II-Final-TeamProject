@@ -18,6 +18,16 @@
     </header>
     <main class="stack">
         <h1>🎮 Pong 2.0</h1>
+        <div class="nickname">
+            <label for="nickname"></label>
+            <input type="text">
+        </div>
+        <div class="forNickname">
+        <p>Enter your NickName</p>
+        </div>
+        <div class="saveNickname">
+        <button id="saveButton">Save Nickname</button>
+        </div>
         <menu class="game-menu">
             <li><a href="pong.html"><button id="singleplayer">1 PLAYER</button></a></li>
             <li><a href="pong.html"><button id="multiplayer">2 PLAYERS</button></a></li>
@@ -37,12 +47,9 @@
     <footer>
         <p>&copy;All rights reserved to FullStackTeam  2025</p>
     </footer>
+    <script src="dist/storage.js"></script>
+    
 
-    <script type="module">
-        import { init } from "./dist/homeView.js";
-        init(document.getElementById('singleplayer'),
-    document.getElementById('multiplayer'),)
-
-    </script>
+    
 </body>
 </html>

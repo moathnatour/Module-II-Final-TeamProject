@@ -417,13 +417,13 @@ isPowerUpActive = false;
 
     dropPowerUp(){
 if(!this.isPowerUpActive){}
-    
+    }
 
     checkForPowerUpCollision(){
 
     }
 }
-}
+
 
 
 

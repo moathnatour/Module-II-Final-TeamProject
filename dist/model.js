@@ -280,8 +280,7 @@ export class ArcadeGame extends MultiPlayerGame {
     }
     dropPowerUp() {
         if (!this.isPowerUpActive) { }
-        checkForPowerUpCollision();
-        {
-        }
+    }
+    checkForPowerUpCollision() {
     }
 }
