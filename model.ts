@@ -265,7 +265,7 @@ export class MultiPlayerGame {
     isGameOver : boolean
     defaultBallSize = 20;
     defaultPaddleSize = 100;
-    defaultBallSpeed = 1;
+    defaultBallSpeed = 1.2;
     defaultPaddleSpeed = 2;
     ballOutOfBounds = false;
     defaultRounds = 3;
@@ -458,35 +458,23 @@ export class QuickMatchGame extends MultiPlayerGame{
 }
 
 
-class AiPAddle extends Paddle{
 
-    constructor(speed: number, xPos: number, yPos: number, size: number){
-        super(speed, xPos, yPos, size)
-    }
-
-
-}
-
-
-class SinglePlayerGame extends MultiPlayerGame {
+export class SinglePlayerGame extends MultiPlayerGame {
 
     difficulty : number
+    distanceToTrack : number
 
     constructor(boardHeight: number, boardWidth: number, paddleMargin: number, difficulty : number){
 
         super(boardHeight, boardWidth,paddleMargin)
         this.difficulty = difficulty;
+        this.setDistanceToTrack();
     }
 
 
     movePaddles() {
-        if (this.controls.w && this.leftPaddle.yPos < this.boardHeight - this.leftPaddle.size) {
-            this.leftPaddle.moveUp();
-        }
-
-        if (this.controls.s && this.leftPaddle.yPos > 0) {
-            this.leftPaddle.moveDown();
-        }
+       
+        this.trackBall();
 
         if (this.controls.ArrowUp && this.rightPaddle.yPos < this.boardHeight - this.rightPaddle.size) {
             this.rightPaddle.moveUp();
@@ -498,8 +486,30 @@ class SinglePlayerGame extends MultiPlayerGame {
     }
 
     trackBall(){
-        if(this.ball.xPos + this.ball.size < this.boardWidth/2 && (this.ball.getYPosition() > this.leftPaddle.getPosition()) && (this.ball.getYPosition() + this.ball.getSize() / 2 < this.leftPaddle.getPosition() + this.leftPaddle.getSize()) ){
+        if(this.ball.xPos  < this.distanceToTrack && (this.ball.getYPosition() < this.leftPaddle.getPosition())  ){
+this.leftPaddle.moveDown();
+    }
 
+    if(this.ball.xPos< this.distanceToTrack && this.ball.getYPosition() > this.leftPaddle.getPosition() + this.leftPaddle.size){
+        this.leftPaddle.moveUp();
+    }
+}
+
+setDistanceToTrack(){
+
+    if(this.difficulty === 1){
+        
+        this.distanceToTrack = this.boardWidth * 0.25;
+        this.leftPaddle.speed *= 0.5
+    }
+    if(this.difficulty === 2){
+        this.distanceToTrack = this.boardWidth * 0.4;
+        
+        
+    }
+    if(this.difficulty === 3){
+        this.distanceToTrack = this.boardWidth * 0.6;
+        this.leftPaddle.speed *= 1.5;
     }
 }
 }
