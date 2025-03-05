@@ -27,7 +27,8 @@ body {
   background-color: var(--background_color);
   display: flex;
   flex-wrap: wrap;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  height: 100vh;
 }
 
 ul, menu {
@@ -36,8 +37,9 @@ ul, menu {
 }
 
 h1 {
-  font-size: 4rem;
+  font-size: 3rem;
   color: var(--text_color_header);
+  text-align: center;
 }
 
 .pong-main {
@@ -57,6 +59,7 @@ button {
   width: 10rem;
   background-color: var(--color-secondary);
   border: 1px solid var(--text_color_secondary);
+  color: var(--text_color_header);
   border-radius: 5px;
   padding: 0.5rem 1rem;
   text-align: center;
@@ -64,7 +67,7 @@ button {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 button:hover {
-  background-color: var(--text_color_header);
+  background-color: var(--text_color_secondary);
 }
 
 a {
@@ -110,26 +113,39 @@ a:hover {
   display: flex;
   flex-direction: column;
   width: calc(100vw - 2rem);
-  height: calc(100vh - 14rem);
+  height: calc(100vh - 10rem);
   padding: 0.5rem 1rem;
   color: var(--text_color_secondary);
 }
 
 .game-header {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  margin: auto;
-  height: 10rem;
-  padding: 0;
+  height: 5rem;
+  padding: 0.5rem 1rem;
+  width: 100vw;
 }
 
 .nav-bar {
+  padding: 0.5rem 1rem;
   display: flex;
-  justify-content: flex-end;
+  text-align: center;
+  align-items: center;
+  gap: 2rem;
+}
+.nav-bar menu {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
   flex: 1;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text_color_header);
+  margin: auto;
 }
 
 .game-menu {
@@ -152,4 +168,5 @@ footer {
   height: 2rem;
   padding: 0 1rem;
   color: var(--text_color_secondary);
+  font-size: 1rem;
 }
