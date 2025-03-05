@@ -194,15 +194,24 @@ export function renderGame(board: HTMLElement, startButton: HTMLButtonElement, l
     secondPlayer.style.height = `${getRightPaddle().size}px`;
     leftBoard.innerHTML = getLeftPaddleScore().toString();
     rightBoard.innerHTML = getRightPaddleScore().toString();
-    console.log('board updated')
+    
     }
 
 
     function announceWinner(){
         const resultDsiplay = document.createElement('div');
         resultDsiplay.classList.add('result-display');
-        resultDsiplay.innerHTML = returnWinner();
-        board.appendChild(resultDsiplay);
+        const asd = returnWinner()[0];
+        const newHeight = returnWinner()[1];
+        const newWidth = returnWinner()[2];
+        board.innerHTML = '';
+        if(typeof asd === "string" ){
+        resultDsiplay.innerHTML = asd;}
+        if(typeof newHeight === "number"){
+        board.style.height = `${newHeight}px`}
+        if(typeof newWidth === "number"){
+            board.style.width = `${newWidth}px`;}
+        document.body.appendChild(resultDsiplay);
     }
     // const asd = ball();
     // const ballElement =  document.createElement('div');

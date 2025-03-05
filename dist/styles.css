@@ -83,6 +83,7 @@ a:hover {
   width: 800px;
   height: 400px;
   position: relative;
+  transition: height 300ms 150ms ease-out, width 100ms 600ms ease-out;
 }
 
 .center {

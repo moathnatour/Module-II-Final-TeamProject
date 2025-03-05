@@ -1,4 +1,4 @@
-import { MultiPlayerGame } from "./model.js";
+import { QuickMatchGame } from "./model.js";
 // export function bounceBallAround(speed: number, speedMultiplier: number, size: number, xPos: number, yPos: number) {
 //     const newBall = new Ball(speed, size, xPos, yPos);
 //     function moveBall() {
@@ -28,7 +28,7 @@ import { MultiPlayerGame } from "./model.js";
 //     return { moveBall, getYPosition, getXPosition, changeXDirection, changeYDirection, getYSpeed, getXSpeed, getSize };
 // }
 export function onStartGame(boardHeight, boardWidth, paddleMargin) {
-    const newGame = new MultiPlayerGame(boardHeight, boardWidth, paddleMargin);
+    const newGame = new QuickMatchGame(boardHeight, boardWidth, paddleMargin);
     document.addEventListener('keydown', function (e) {
         if (e.key === 'w') {
             newGame.controls.w = true;
