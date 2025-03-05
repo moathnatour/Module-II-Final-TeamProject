@@ -19,14 +19,25 @@
     <main class="stack">
         <h1>🎮 Pong 2.0</h1>
         <menu class="game-menu">
-            <li><a href="pong.html"><button>1 PLAYER</button></a></li>
-            <li><a href="pong.html"><button>2 PLAYERS</button></a></li>
+            <li><a href="pong.html"><button id="singleplayer">1 PLAYER</button></a></li>
+            <li><a href="pong.html"><button id="multiplayer">2 PLAYERS</button></a></li>
             <li><a href="info.html"><button>INSTRUCTIONS</button></a></li>
         </menu>
     </main>
+    <div class="options-menu singleplayer-menu" id="singleplayer-menu">
+
+    </div>
+    <div class="options-menu multiplayer-menu" ></div>
 
     <footer>
         <p>&copy;All rights reserved to FullStackTeam  2025</p>
     </footer>
+
+    <script type="module">
+        import { init } from "./dist/homeView.js";
+        init(document.getElementById('singleplayer'),
+    document.getElementById('multiplayer'),)
+
+    </script>
 </body>
 </html>
