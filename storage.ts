@@ -12,3 +12,5 @@ saveButton.addEventListener('click', () => {
     alert('Please enter a nickname!');
   }
 });
+
+
