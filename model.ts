@@ -250,6 +250,7 @@ export class MultiPlayerGame {
         if(this.ballOutOfBounds && this.ball.xPos < 0){
             this.rightPaddleScore++;
             console.log('right scored');
+
         }
     }
 
