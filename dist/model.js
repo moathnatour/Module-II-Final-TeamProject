@@ -145,7 +145,11 @@ export class MultiPlayerGame {
         }
     }
     animatePaddle(paddleSide) {
-        const paddleElement = document.querySelector(paddleSide === "left" ? ".paddle:first-of-type" : ".paddle:last-of-type");
+        // const paddleElement = document.querySelector( 
+        //     paddleSide === "left" ? ".paddle:first-of-type" : ".paddle:last-of-type"
+        // );
+        const paddles = document.querySelectorAll(".paddle");
+        const paddleElement = paddleSide === "left" ? paddles[0] : paddles[1];
         if (paddleElement) {
             paddleElement.classList.add("paddle-hit");
             setTimeout(() => paddleElement.classList.remove("paddle-hit"), 100);
